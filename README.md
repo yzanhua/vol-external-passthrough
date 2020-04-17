@@ -9,10 +9,9 @@ If you don't have the shared dynamic libraries, you'll need to reinstall HDF5.
 - Get the latest version of the develop branch;
 - In the repo directory, run ./autogen.sh
 - In your build directory, run configure and make sure you **DO NOT ** have option "--disable-shared", for example: 
-
  	>
 	env CC=mpicc ../hdf5_dev/configure --enable-build-mode=debug --enable-internal-debug=all --enable-parallel
-		- make; make install	 
+- make; make install	 
 
 ##Change following paths in Makefile:
 
@@ -24,14 +23,12 @@ If you don't have the shared dynamic libraries, you'll need to reinstall HDF5.
 Type *make* in the source dir and you'll see **libh5passthrough_vol.so**, which is the pass -hrough VOL connector library. 
 
 To run the demo, set following environment variables first:
- 
 >
 	export HDF5_PLUGIN_PATH=PATH_TO_YOUR_pass_through_vol
 	export HDF5_VOL_CONNECTOR="pass_through_ext under_vol=0;under_info={};"
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:PATH_TO_YOUR_hdf5_build/hdf5/lib:$HDF5_PLUGIN_PATH
 
 You can run hdf5/bin/h5ls sample.h5, and it should show many lines of debugging info like:
-
 >
 	------- PASS THROUGH VOL INIT
 	------- PASS THROUGH VOL INFO String To Info
