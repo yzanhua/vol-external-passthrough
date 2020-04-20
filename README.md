@@ -1,5 +1,5 @@
 ### HDF5 Dependency
-It's tested with the latest version of the HDF5 dev branch (commit 66842e3347a52e18aea227ba893a4d48ee0b80e7), but you don't necessarily need that particular version.
+This VOL connector was tested with the version of the HDF5 dev branch as of April 20, 2020, but you don't necessarily need that particular version.
 
 **Note**: Make sure you have libhdf5 shared dynamic libraries in your hdf5/lib. For Linux, it's libhdf5.so, for OSX, it's libhdf5.dylib.
 
@@ -25,10 +25,10 @@ To run the demo, set following environment variables first:
     export HDF5_VOL_CONNECTOR="pass_through_ext under_vol=0;under_info={};"
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:PATH_TO_YOUR_hdf5_build/hdf5/lib:$HDF5_PLUGIN_PATH
 
-You can run hdf5/bin/h5ls sample.h5, and it should show many lines of debugging info like:
+You can run "**HDF5_DIR**/bin/h5ls sample.h5", and it should show many lines of debugging info like:
 >
-    ------- PASS THROUGH VOL INIT
-    ------- PASS THROUGH VOL INFO String To Info
-    ------- PASS THROUGH VOL INFO Copy
+    ------- EXT PASS THROUGH VOL INIT
+    ------- EXT PASS THROUGH VOL INFO String To Info
+    ------- EXT PASS THROUGH VOL INFO Copy
 
 By default, the debugging mode is enabled to ensure the VOL connector is working. To disable it, simply remove the $(DEBUG) option from the CC line, and rerun make.

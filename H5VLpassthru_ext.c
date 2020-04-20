@@ -49,7 +49,7 @@
 
 /* Whether to display log messge when callback is invoked */
 /* (Uncomment to enable) */
-/* #define ENABLE_PASSTHRU_LOGGING */
+/* #define ENABLE_EXT_PASSTHRU_LOGGING */
 
 /* Hack for missing va_copy() in old Visual Studio editions
  * (from H5win2_defs.h - used on VS2012 and earlier)
@@ -414,8 +414,8 @@ static herr_t
 H5VL_pass_through_ext_init(hid_t vipl_id)
 {
     printf("%s:%d: Pass_through VOL is called.\n", __func__, __LINE__);
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INIT\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INIT\n");
 #endif
 
     /* Shut compiler up about unused parameter */
@@ -441,8 +441,8 @@ H5VL_pass_through_ext_init(hid_t vipl_id)
 static herr_t
 H5VL_pass_through_ext_term(void)
 {
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL TERM\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL TERM\n");
 #endif
 
     /* Reset VOL ID */
@@ -468,8 +468,8 @@ H5VL_pass_through_ext_info_copy(const void *_info)
     const H5VL_pass_through_ext_info_t *info = (const H5VL_pass_through_ext_info_t *)_info;
     H5VL_pass_through_ext_info_t *new_info;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INFO Copy\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INFO Copy\n");
 #endif
 
     /* Allocate new VOL info struct for the pass through connector */
@@ -502,8 +502,8 @@ H5VL_pass_through_ext_info_cmp(int *cmp_value, const void *_info1, const void *_
     const H5VL_pass_through_ext_info_t *info1 = (const H5VL_pass_through_ext_info_t *)_info1;
     const H5VL_pass_through_ext_info_t *info2 = (const H5VL_pass_through_ext_info_t *)_info2;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INFO Compare\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INFO Compare\n");
 #endif
 
     /* Sanity checks */
@@ -546,8 +546,8 @@ H5VL_pass_through_ext_info_free(void *_info)
     H5VL_pass_through_ext_info_t *info = (H5VL_pass_through_ext_info_t *)_info;
     hid_t err_id;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INFO Free\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INFO Free\n");
 #endif
 
     err_id = H5Eget_current_stack();
@@ -584,8 +584,8 @@ H5VL_pass_through_ext_info_to_str(const void *_info, char **str)
     char *under_vol_string = NULL;
     size_t under_vol_str_len = 0;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INFO To String\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INFO To String\n");
 #endif
 
     /* Get value and string for underlying VOL connector */
@@ -630,8 +630,8 @@ H5VL_pass_through_ext_str_to_info(const char *str, void **_info)
     hid_t under_vol_id;
     void *under_vol_info = NULL;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INFO String To Info\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INFO String To Info\n");
 #endif
 
     /* Retrieve the underlying VOL connector value and info */
@@ -679,8 +679,8 @@ H5VL_pass_through_ext_get_object(const void *obj)
 {
     const H5VL_pass_through_ext_t *o = (const H5VL_pass_through_ext_t *)obj;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL Get object\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL Get object\n");
 #endif
 
     return H5VLget_object(o->under_object, o->under_vol_id);
@@ -703,8 +703,8 @@ H5VL_pass_through_ext_get_wrap_ctx(const void *obj, void **wrap_ctx)
     const H5VL_pass_through_ext_t *o = (const H5VL_pass_through_ext_t *)obj;
     H5VL_pass_through_ext_wrap_ctx_t *new_wrap_ctx;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL WRAP CTX Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL WRAP CTX Get\n");
 #endif
 
     /* Allocate new VOL object wrapping context for the pass through connector */
@@ -739,8 +739,8 @@ H5VL_pass_through_ext_wrap_object(void *obj, H5I_type_t obj_type, void *_wrap_ct
     H5VL_pass_through_ext_t *new_obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL WRAP Object\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL WRAP Object\n");
 #endif
 
     /* Wrap the object with the underlying VOL */
@@ -771,8 +771,8 @@ H5VL_pass_through_ext_unwrap_object(void *obj)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL UNWRAP Object\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL UNWRAP Object\n");
 #endif
 
     /* Unrap the object with the underlying VOL */
@@ -804,8 +804,8 @@ H5VL_pass_through_ext_free_wrap_ctx(void *_wrap_ctx)
     H5VL_pass_through_ext_wrap_ctx_t *wrap_ctx = (H5VL_pass_through_ext_wrap_ctx_t *)_wrap_ctx;
     hid_t err_id;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL WRAP CTX Free\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL WRAP CTX Free\n");
 #endif
 
     err_id = H5Eget_current_stack();
@@ -843,8 +843,8 @@ H5VL_pass_through_ext_attr_create(void *obj, const H5VL_loc_params_t *loc_params
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Create\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Create\n");
 #endif
 
     under = H5VLattr_create(o->under_object, loc_params, o->under_vol_id, name, type_id, space_id, acpl_id, aapl_id, dxpl_id, req);
@@ -880,8 +880,8 @@ H5VL_pass_through_ext_attr_open(void *obj, const H5VL_loc_params_t *loc_params,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Open\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Open\n");
 #endif
 
     under = H5VLattr_open(o->under_object, loc_params, o->under_vol_id, name, aapl_id, dxpl_id, req);
@@ -916,8 +916,8 @@ H5VL_pass_through_ext_attr_read(void *attr, hid_t mem_type_id, void *buf,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)attr;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Read\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Read\n");
 #endif
 
     ret_value = H5VLattr_read(o->under_object, o->under_vol_id, mem_type_id, buf, dxpl_id, req);
@@ -947,8 +947,8 @@ H5VL_pass_through_ext_attr_write(void *attr, hid_t mem_type_id, const void *buf,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)attr;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Write\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Write\n");
 #endif
 
     ret_value = H5VLattr_write(o->under_object, o->under_vol_id, mem_type_id, buf, dxpl_id, req);
@@ -978,8 +978,8 @@ H5VL_pass_through_ext_attr_get(void *obj, H5VL_attr_get_t get_type, hid_t dxpl_i
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Get\n");
 #endif
 
     ret_value = H5VLattr_get(o->under_object, o->under_vol_id, get_type, dxpl_id, req, arguments);
@@ -1009,8 +1009,8 @@ H5VL_pass_through_ext_attr_specific(void *obj, const H5VL_loc_params_t *loc_para
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Specific\n");
 #endif
 
     ret_value = H5VLattr_specific(o->under_object, loc_params, o->under_vol_id, specific_type, dxpl_id, req, arguments);
@@ -1040,8 +1040,8 @@ H5VL_pass_through_ext_attr_optional(void *obj, H5VL_attr_optional_t opt_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Optional\n");
 #endif
 
     ret_value = H5VLattr_optional(o->under_object, o->under_vol_id, opt_type, dxpl_id, req, arguments);
@@ -1070,8 +1070,8 @@ H5VL_pass_through_ext_attr_close(void *attr, hid_t dxpl_id, void **req)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)attr;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL ATTRIBUTE Close\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL ATTRIBUTE Close\n");
 #endif
 
     ret_value = H5VLattr_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -1107,8 +1107,8 @@ H5VL_pass_through_ext_dataset_create(void *obj, const H5VL_loc_params_t *loc_par
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATASET Create\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATASET Create\n");
 #endif
 
     under = H5VLdataset_create(o->under_object, loc_params, o->under_vol_id, name, lcpl_id, type_id, space_id, dcpl_id,  dapl_id, dxpl_id, req);
@@ -1144,8 +1144,8 @@ H5VL_pass_through_ext_dataset_open(void *obj, const H5VL_loc_params_t *loc_param
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATASET Open\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATASET Open\n");
 #endif
 
     under = H5VLdataset_open(o->under_object, loc_params, o->under_vol_id, name, dapl_id, dxpl_id, req);
@@ -1180,8 +1180,8 @@ H5VL_pass_through_ext_dataset_read(void *dset, hid_t mem_type_id, hid_t mem_spac
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)dset;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATASET Read\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATASET Read\n");
 #endif
 
     ret_value = H5VLdataset_read(o->under_object, o->under_vol_id, mem_type_id, mem_space_id, file_space_id, plist_id, buf, req);
@@ -1211,8 +1211,8 @@ H5VL_pass_through_ext_dataset_write(void *dset, hid_t mem_type_id, hid_t mem_spa
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)dset;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATASET Write\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATASET Write\n");
 #endif
 
     ret_value = H5VLdataset_write(o->under_object, o->under_vol_id, mem_type_id, mem_space_id, file_space_id, plist_id, buf, req);
@@ -1242,8 +1242,8 @@ H5VL_pass_through_ext_dataset_get(void *dset, H5VL_dataset_get_t get_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)dset;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATASET Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATASET Get\n");
 #endif
 
     ret_value = H5VLdataset_get(o->under_object, o->under_vol_id, get_type, dxpl_id, req, arguments);
@@ -1274,8 +1274,8 @@ H5VL_pass_through_ext_dataset_specific(void *obj, H5VL_dataset_specific_t specif
     hid_t under_vol_id;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL H5Dspecific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL H5Dspecific\n");
 #endif
 
     // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -1309,8 +1309,8 @@ H5VL_pass_through_ext_dataset_optional(void *obj, H5VL_dataset_optional_t opt_ty
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATASET Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATASET Optional\n");
 #endif
 
     ret_value = H5VLdataset_optional(o->under_object, o->under_vol_id, opt_type, dxpl_id, req, arguments);
@@ -1339,8 +1339,8 @@ H5VL_pass_through_ext_dataset_close(void *dset, hid_t dxpl_id, void **req)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)dset;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATASET Close\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATASET Close\n");
 #endif
 
     ret_value = H5VLdataset_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -1376,8 +1376,8 @@ H5VL_pass_through_ext_datatype_commit(void *obj, const H5VL_loc_params_t *loc_pa
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATATYPE Commit\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATATYPE Commit\n");
 #endif
 
     under = H5VLdatatype_commit(o->under_object, loc_params, o->under_vol_id, name, type_id, lcpl_id, tcpl_id, tapl_id, dxpl_id, req);
@@ -1413,8 +1413,8 @@ H5VL_pass_through_ext_datatype_open(void *obj, const H5VL_loc_params_t *loc_para
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATATYPE Open\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATATYPE Open\n");
 #endif
 
     under = H5VLdatatype_open(o->under_object, loc_params, o->under_vol_id, name, tapl_id, dxpl_id, req);
@@ -1449,8 +1449,8 @@ H5VL_pass_through_ext_datatype_get(void *dt, H5VL_datatype_get_t get_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)dt;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATATYPE Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATATYPE Get\n");
 #endif
 
     ret_value = H5VLdatatype_get(o->under_object, o->under_vol_id, get_type, dxpl_id, req, arguments);
@@ -1481,8 +1481,8 @@ H5VL_pass_through_ext_datatype_specific(void *obj, H5VL_datatype_specific_t spec
     hid_t under_vol_id;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATATYPE Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATATYPE Specific\n");
 #endif
 
     // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -1516,8 +1516,8 @@ H5VL_pass_through_ext_datatype_optional(void *obj, H5VL_datatype_optional_t opt_
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATATYPE Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATATYPE Optional\n");
 #endif
 
     ret_value = H5VLdatatype_optional(o->under_object, o->under_vol_id, opt_type, dxpl_id, req, arguments);
@@ -1546,8 +1546,8 @@ H5VL_pass_through_ext_datatype_close(void *dt, hid_t dxpl_id, void **req)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)dt;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL DATATYPE Close\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL DATATYPE Close\n");
 #endif
 
     assert(o->under_object);
@@ -1585,8 +1585,8 @@ H5VL_pass_through_ext_file_create(const char *name, unsigned flags, hid_t fcpl_i
     hid_t under_fapl_id;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL FILE Create\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL FILE Create\n");
 #endif
 
     /* Get copy of our VOL info from FAPL */
@@ -1643,8 +1643,8 @@ H5VL_pass_through_ext_file_open(const char *name, unsigned flags, hid_t fapl_id,
     hid_t under_fapl_id;
     void *under;
     printf("%s:%d: Pass_through VOL is called.\n", __func__, __LINE__);
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL FILE Open\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL FILE Open\n");
 #endif
 
     /* Get copy of our VOL info from FAPL */
@@ -1699,8 +1699,8 @@ H5VL_pass_through_ext_file_get(void *file, H5VL_file_get_t get_type, hid_t dxpl_
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)file;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL FILE Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL FILE Get\n");
 #endif
 
     ret_value = H5VLfile_get(o->under_object, o->under_vol_id, get_type, dxpl_id, req, arguments);
@@ -1757,8 +1757,8 @@ H5VL_pass_through_ext_file_specific(void *file, H5VL_file_specific_t specific_ty
     hid_t under_vol_id = -1;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL FILE Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL FILE Specific\n");
 #endif
 
     /* Unpack arguments to get at the child file pointer when mounting a file */
@@ -1867,8 +1867,8 @@ H5VL_pass_through_ext_file_optional(void *file, H5VL_file_optional_t opt_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)file;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL File Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL File Optional\n");
 #endif
 
     ret_value = H5VLfile_optional(o->under_object, o->under_vol_id, opt_type, dxpl_id, req, arguments);
@@ -1897,8 +1897,8 @@ H5VL_pass_through_ext_file_close(void *file, hid_t dxpl_id, void **req)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)file;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL FILE Close\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL FILE Close\n");
 #endif
 
     ret_value = H5VLfile_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -1934,8 +1934,8 @@ H5VL_pass_through_ext_group_create(void *obj, const H5VL_loc_params_t *loc_param
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL GROUP Create\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL GROUP Create\n");
 #endif
 
     under = H5VLgroup_create(o->under_object, loc_params, o->under_vol_id, name, lcpl_id, gcpl_id,  gapl_id, dxpl_id, req);
@@ -1971,8 +1971,8 @@ H5VL_pass_through_ext_group_open(void *obj, const H5VL_loc_params_t *loc_params,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
     printf("%s:%d: Pass_through VOL is called.\n", __func__, __LINE__);
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL GROUP Open\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL GROUP Open\n");
 #endif
 
     under = H5VLgroup_open(o->under_object, loc_params, o->under_vol_id, name, gapl_id, dxpl_id, req);
@@ -2007,8 +2007,8 @@ H5VL_pass_through_ext_group_get(void *obj, H5VL_group_get_t get_type, hid_t dxpl
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL GROUP Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL GROUP Get\n");
 #endif
 
     ret_value = H5VLgroup_get(o->under_object, o->under_vol_id, get_type, dxpl_id, req, arguments);
@@ -2039,8 +2039,8 @@ H5VL_pass_through_ext_group_specific(void *obj, H5VL_group_specific_t specific_t
     hid_t under_vol_id;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL GROUP Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL GROUP Specific\n");
 #endif
 
     // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -2074,8 +2074,8 @@ H5VL_pass_through_ext_group_optional(void *obj, H5VL_group_optional_t opt_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL GROUP Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL GROUP Optional\n");
 #endif
 
     ret_value = H5VLgroup_optional(o->under_object, o->under_vol_id, opt_type, dxpl_id, req, arguments);
@@ -2104,8 +2104,8 @@ H5VL_pass_through_ext_group_close(void *grp, hid_t dxpl_id, void **req)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)grp;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL H5Gclose\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL H5Gclose\n");
 #endif
 
     ret_value = H5VLgroup_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -2167,8 +2167,8 @@ H5VL_pass_through_ext_link_create(H5VL_link_create_type_t create_type, void *obj
     hid_t under_vol_id = -1;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL LINK Create\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL LINK Create\n");
 #endif
 
     /* Try to retrieve the "under" VOL id */
@@ -2233,8 +2233,8 @@ H5VL_pass_through_ext_link_copy(void *src_obj, const H5VL_loc_params_t *loc_para
     hid_t under_vol_id = -1;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL LINK Copy\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL LINK Copy\n");
 #endif
 
     /* Retrieve the "under" VOL id */
@@ -2279,8 +2279,8 @@ H5VL_pass_through_ext_link_move(void *src_obj, const H5VL_loc_params_t *loc_para
     hid_t under_vol_id = -1;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL LINK Move\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL LINK Move\n");
 #endif
 
     /* Retrieve the "under" VOL id */
@@ -2317,8 +2317,8 @@ H5VL_pass_through_ext_link_get(void *obj, const H5VL_loc_params_t *loc_params,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL LINK Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL LINK Get\n");
 #endif
 
     ret_value = H5VLlink_get(o->under_object, loc_params, o->under_vol_id, get_type, dxpl_id, req, arguments);
@@ -2348,8 +2348,8 @@ H5VL_pass_through_ext_link_specific(void *obj, const H5VL_loc_params_t *loc_para
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL LINK Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL LINK Specific\n");
 #endif
 
     ret_value = H5VLlink_specific(o->under_object, loc_params, o->under_vol_id, specific_type, dxpl_id, req, arguments);
@@ -2379,8 +2379,8 @@ H5VL_pass_through_ext_link_optional(void *obj, H5VL_link_optional_t opt_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL LINK Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL LINK Optional\n");
 #endif
 
     ret_value = H5VLlink_optional(o->under_object, o->under_vol_id, opt_type, dxpl_id, req, arguments);
@@ -2411,8 +2411,8 @@ H5VL_pass_through_ext_object_open(void *obj, const H5VL_loc_params_t *loc_params
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     void *under;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL OBJECT Open\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL OBJECT Open\n");
 #endif
 
     under = H5VLobject_open(o->under_object, loc_params, o->under_vol_id, opened_type, dxpl_id, req);
@@ -2450,8 +2450,8 @@ H5VL_pass_through_ext_object_copy(void *src_obj, const H5VL_loc_params_t *src_lo
     H5VL_pass_through_ext_t *o_dst = (H5VL_pass_through_ext_t *)dst_obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL OBJECT Copy\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL OBJECT Copy\n");
 #endif
 
     ret_value = H5VLobject_copy(o_src->under_object, src_loc_params, src_name, o_dst->under_object, dst_loc_params, dst_name, o_src->under_vol_id, ocpypl_id, lcpl_id, dxpl_id, req);
@@ -2480,8 +2480,8 @@ H5VL_pass_through_ext_object_get(void *obj, const H5VL_loc_params_t *loc_params,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL OBJECT Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL OBJECT Get\n");
 #endif
 
     ret_value = H5VLobject_get(o->under_object, loc_params, o->under_vol_id, get_type, dxpl_id, req, arguments);
@@ -2513,8 +2513,8 @@ H5VL_pass_through_ext_object_specific(void *obj, const H5VL_loc_params_t *loc_pa
     hid_t under_vol_id;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL OBJECT Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL OBJECT Specific\n");
 #endif
 
     // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -2548,8 +2548,8 @@ H5VL_pass_through_ext_object_optional(void *obj, H5VL_object_optional_t opt_type
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL OBJECT Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL OBJECT Optional\n");
 #endif
 
     ret_value = H5VLobject_optional(o->under_object, o->under_vol_id, opt_type, dxpl_id, req, arguments);
@@ -2578,8 +2578,8 @@ H5VL_pass_through_ext_introspect_get_conn_cls(void *obj, H5VL_get_conn_lvl_t lvl
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INTROSPECT GetConnCls\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INTROSPECT GetConnCls\n");
 #endif
 
     /* Check for querying this connector's class */
@@ -2611,8 +2611,8 @@ H5VL_pass_through_ext_introspect_opt_query(void *obj, H5VL_subclass_t cls,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL INTROSPECT OptQuery\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL INTROSPECT OptQuery\n");
 #endif
 
     ret_value = H5VLintrospect_opt_query(o->under_object, o->under_vol_id, cls,
@@ -2642,8 +2642,8 @@ H5VL_pass_through_ext_request_wait(void *obj, uint64_t timeout,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL REQUEST Wait\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL REQUEST Wait\n");
 #endif
 
     ret_value = H5VLrequest_wait(o->under_object, o->under_vol_id, timeout, status);
@@ -2674,8 +2674,8 @@ H5VL_pass_through_ext_request_notify(void *obj, H5VL_request_notify_t cb, void *
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL REQUEST Notify\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL REQUEST Notify\n");
 #endif
 
     ret_value = H5VLrequest_notify(o->under_object, o->under_vol_id, cb, ctx);
@@ -2705,8 +2705,8 @@ H5VL_pass_through_ext_request_cancel(void *obj)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL REQUEST Cancel\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL REQUEST Cancel\n");
 #endif
 
     ret_value = H5VLrequest_cancel(o->under_object, o->under_vol_id);
@@ -2760,8 +2760,8 @@ H5VL_pass_through_ext_request_specific(void *obj, H5VL_request_specific_t specif
 {
     herr_t ret_value = -1;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL REQUEST Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL REQUEST Specific\n");
 #endif
 
     if(H5VL_REQUEST_WAITANY == specific_type ||
@@ -2905,8 +2905,8 @@ H5VL_pass_through_ext_request_optional(void *obj, H5VL_request_optional_t opt_ty
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL REQUEST Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL REQUEST Optional\n");
 #endif
 
     ret_value = H5VLrequest_optional(o->under_object, o->under_vol_id, opt_type, arguments);
@@ -2932,8 +2932,8 @@ H5VL_pass_through_ext_request_free(void *obj)
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL REQUEST Free\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL REQUEST Free\n");
 #endif
 
     ret_value = H5VLrequest_free(o->under_object, o->under_vol_id);
@@ -2961,8 +2961,8 @@ H5VL_pass_through_ext_blob_put(void *obj, const void *buf, size_t size,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL BLOB Put\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL BLOB Put\n");
 #endif
 
     ret_value = H5VLblob_put(o->under_object, o->under_vol_id, buf, size,
@@ -2988,8 +2988,8 @@ H5VL_pass_through_ext_blob_get(void *obj, const void *blob_id, void *buf,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL BLOB Get\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL BLOB Get\n");
 #endif
 
     ret_value = H5VLblob_get(o->under_object, o->under_vol_id, blob_id, buf,
@@ -3015,8 +3015,8 @@ H5VL_pass_through_ext_blob_specific(void *obj, void *blob_id,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL BLOB Specific\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL BLOB Specific\n");
 #endif
 
     ret_value = H5VLblob_specific(o->under_object, o->under_vol_id, blob_id,
@@ -3042,8 +3042,8 @@ H5VL_pass_through_ext_blob_optional(void *obj, void *blob_id,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL BLOB Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL BLOB Optional\n");
 #endif
 
     ret_value = H5VLblob_optional(o->under_object, o->under_vol_id, blob_id,
@@ -3071,8 +3071,8 @@ H5VL_pass_through_ext_token_cmp(void *obj, const H5O_token_t *token1,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL TOKEN Compare\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL TOKEN Compare\n");
 #endif
 
     /* Sanity checks */
@@ -3104,8 +3104,8 @@ H5VL_pass_through_ext_token_to_str(void *obj, H5I_type_t obj_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL TOKEN To string\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL TOKEN To string\n");
 #endif
 
     /* Sanity checks */
@@ -3136,8 +3136,8 @@ H5VL_pass_through_ext_token_from_str(void *obj, H5I_type_t obj_type,
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL TOKEN From string\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL TOKEN From string\n");
 #endif
 
     /* Sanity checks */
@@ -3167,8 +3167,8 @@ H5VL_pass_through_ext_optional(void *obj, int op_type, hid_t dxpl_id, void **req
     H5VL_pass_through_ext_t *o = (H5VL_pass_through_ext_t *)obj;
     herr_t ret_value;
 
-#ifdef ENABLE_PASSTHRU_LOGGING
-    printf("------- PASS THROUGH VOL generic Optional\n");
+#ifdef ENABLE_EXT_PASSTHRU_LOGGING
+    printf("------- EXT PASS THROUGH VOL generic Optional\n");
 #endif
 
     ret_value = H5VLoptional(o->under_object, o->under_vol_id, op_type,
