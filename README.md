@@ -25,6 +25,8 @@ To run the demo, set following environment variables first:
     export HDF5_VOL_CONNECTOR="pass_through_ext under_vol=0;under_info={};"
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:PATH_TO_YOUR_hdf5_build/hdf5/lib:$HDF5_PLUGIN_PATH
 
+    on MacOS, use DYLD_LIBRARY_PATH instead of LD_LIBRARY_PATH
+
 You can run "**HDF5_DIR**/bin/h5ls sample.h5", and it should show many lines of debugging info like:
 >
     ------- EXT PASS THROUGH VOL INIT

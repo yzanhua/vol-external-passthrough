@@ -1,6 +1,6 @@
 CC=mpicc
 #Your HDF5 install path
-HDF5_DIR=/Users/tonglin/nersc_dev_sync/hdf5_build/hdf5
+HDF5_DIR=/Users/koziol/HDF5/github/hdfgroup/async/build_parallel_debug/hdf5/
 MPI_DIR=/usr/local
 
 INCLUDES=-I$(MPI_DIR)/include -I$(HDF5_DIR)/include
