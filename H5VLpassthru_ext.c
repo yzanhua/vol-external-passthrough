@@ -413,7 +413,6 @@ H5VL_pass_through_ext_register(void)
 static herr_t
 H5VL_pass_through_ext_init(hid_t vipl_id)
 {
-    printf("%s:%d: Pass_through VOL is called.\n", __func__, __LINE__);
 #ifdef ENABLE_EXT_PASSTHRU_LOGGING
     printf("------- EXT PASS THROUGH VOL INIT\n");
 #endif
