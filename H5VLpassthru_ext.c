@@ -2647,9 +2647,6 @@ H5VL_pass_through_ext_request_wait(void *obj, uint64_t timeout,
 
     ret_value = H5VLrequest_wait(o->under_object, o->under_vol_id, timeout, status);
 
-    if(ret_value >= 0 && *status != H5ES_STATUS_IN_PROGRESS)
-        H5VL_pass_through_ext_free_obj(o);
-
     return ret_value;
 } /* end H5VL_pass_through_ext_request_wait() */
 
@@ -2679,9 +2676,6 @@ H5VL_pass_through_ext_request_notify(void *obj, H5VL_request_notify_t cb, void *
 
     ret_value = H5VLrequest_notify(o->under_object, o->under_vol_id, cb, ctx);
 
-    if(ret_value >= 0)
-        H5VL_pass_through_ext_free_obj(o);
-
     return ret_value;
 } /* end H5VL_pass_through_ext_request_notify() */
 
@@ -2709,9 +2703,6 @@ H5VL_pass_through_ext_request_cancel(void *obj)
 #endif
 
     ret_value = H5VLrequest_cancel(o->under_object, o->under_vol_id);
-
-    if(ret_value >= 0)
-        H5VL_pass_through_ext_free_obj(o);
 
     return ret_value;
 } /* end H5VL_pass_through_ext_request_cancel() */
@@ -2812,14 +2803,6 @@ H5VL_pass_through_ext_request_specific(void *obj, H5VL_request_specific_t specif
                 ret_value = H5VL_pass_through_ext_request_specific_reissue(o->under_object, o->under_vol_id, specific_type, req_count, under_req_array, timeout,
                                                                        idx,
                                                                        status);
-
-                /* Release the completed request, if it completed */
-                if(ret_value >= 0 && *status != H5ES_STATUS_IN_PROGRESS) {
-                    H5VL_pass_through_ext_t *tmp_o;
-
-                    tmp_o = (H5VL_pass_through_ext_t *)req_array[*idx];
-                    H5VL_pass_through_ext_free_obj(tmp_o);
-                } /* end if */
             } /* end if */
             else if(H5VL_REQUEST_WAITSOME == specific_type) {
                 size_t *outcount;               /* # of completed requests */
@@ -2834,22 +2817,6 @@ H5VL_pass_through_ext_request_specific(void *obj, H5VL_request_specific_t specif
 
                 /* Reissue the WAITSOME 'request specific' call */
                 ret_value = H5VL_pass_through_ext_request_specific_reissue(o->under_object, o->under_vol_id, specific_type, req_count, under_req_array, timeout, outcount, array_of_indices, array_of_statuses);
-
-                /* If any requests completed, release them */
-                if(ret_value >= 0 && *outcount > 0) {
-                    unsigned *idx_array;    /* Array of indices of completed requests */
-
-                    /* Retrieve the array of completed request indices */
-                    idx_array = va_arg(tmp_arguments, unsigned *);
-
-                    /* Release the completed requests */
-                    for(u = 0; u < *outcount; u++) {
-                        H5VL_pass_through_ext_t *tmp_o;
-
-                        tmp_o = (H5VL_pass_through_ext_t *)req_array[idx_array[u]];
-                        H5VL_pass_through_ext_free_obj(tmp_o);
-                    } /* end for */
-                } /* end if */
             } /* end else-if */
             else {      /* H5VL_REQUEST_WAITALL == specific_type */
                 H5ES_status_t *array_of_statuses; /* Array of statuses for completed requests */
@@ -2859,18 +2826,6 @@ H5VL_pass_through_ext_request_specific(void *obj, H5VL_request_specific_t specif
 
                 /* Reissue the WAITALL 'request specific' call */
                 ret_value = H5VL_pass_through_ext_request_specific_reissue(o->under_object, o->under_vol_id, specific_type, req_count, under_req_array, timeout, array_of_statuses);
-
-                /* Release the completed requests */
-                if(ret_value >= 0) {
-                    for(u = 0; u < req_count; u++) {
-                        if(array_of_statuses[u] != H5ES_STATUS_IN_PROGRESS) {
-                            H5VL_pass_through_ext_t *tmp_o;
-
-                            tmp_o = (H5VL_pass_through_ext_t *)req_array[u];
-                            H5VL_pass_through_ext_free_obj(tmp_o);
-                        } /* end if */
-                    } /* end for */
-                } /* end if */
             } /* end else */
 
             /* Release array of requests for underlying connector */
