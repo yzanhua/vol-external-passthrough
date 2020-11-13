@@ -1,20 +1,53 @@
-CC=mpicc
 #Your HDF5 install path
-HDF5_DIR=/Users/koziol/HDF5/github/hdfgroup/async/build_parallel_debug/hdf5/
-MPI_DIR=/usr/local
+#HDF5_DIR=../build_hdf5/hdf5
+HDF5_DIR=../build_parallel_debug/hdf5
+#MPI_DIR=/usr/local
 
-INCLUDES=-I$(MPI_DIR)/include -I$(HDF5_DIR)/include
-LIBS=-L$(HDF5_DIR)/lib -L$(MPI_DIR)/lib -lhdf5 -lz
-DEBUG=-DENABLE_EXT_PASSTHRU_LOGGING
+CC=mpicc
+#CC=gcc-9
+AR=ar
 
-CFLAGS=$(INCLUDES) $(LIBS)
+DEBUG=-DENABLE_EXT_PASSTHRU_LOGGING -g -O0
+#INCLUDES=-I$(MPI_DIR)/include -I$(HDF5_DIR)/include
+INCLUDES=-I$(HDF5_DIR)/include
+CFLAGS = $(DEBUG) -fPIC $(INCLUDES) -Wall
+#LIBS=-L$(HDF5_DIR)/lib -L$(MPI_DIR)/lib -lhdf5 -lz
+LIBS=-L$(HDF5_DIR)/lib -lhdf5 -lz
+DYNLDFLAGS = $(DEBUG) -dynamiclib -current_version 1.0 -fPIC $(LIBS)
+STATLDFLAGS = $(DEBUG) -fPIC $(LIBS)
+LDFLAGS = $(DEBUG) $(LIBS)
+ARFLAGS = rs
 
-TARGET=libh5passthrough_vol.so
+DYNSRC = H5VLpassthru_ext.c
+DYNOBJ = $(DYNSRC:.c=.o)
+DYNLIB = libh5passthrough_vol.dylib
+DYNDBG = libh5passthrough_vol.dylib.dSYM
 
-all: makeso
+STATSRC = new_h5api.c
+STATOBJ = $(STATSRC:.c=.o)
+STATLIB = libnew_h5api.a
 
-makeso:
-	$(CC) -shared $(CFLAGS)  $(DEBUG) -o $(TARGET) -fPIC H5VLpassthru_ext.c
+EXSRC = new_h5api_ex.c
+EXOBJ = $(EXSRC:.c=.o)
+EXEXE = new_h5api_ex.exe
+EXDBG = new_h5api_ex.exe.dSYM
 
+DATAFILE = testfile.h5
+
+all: $(EXEXE) $(DYNLIB) $(STATLIB)
+
+$(EXEXE): $(EXSRC) $(STATLIB) $(DYNLIB)
+	$(CC) $(CFLAGS) $^ -o $(EXEXE) $(LDFLAGS) -L. -lnew_h5api
+
+$(DYNLIB): $(DYNSRC)
+	$(CC) $(CFLAGS) $(DYNLDFLAGS) $^ -o $@
+
+$(STATOBJ): $(STATSRC)
+	$(CC) -c $(CFLAGS) $^ -o $(STATOBJ)
+
+$(STATLIB): $(STATOBJ)
+	$(AR) $(ARFLAGS) $@ $^
+
+.PHONY: clean all
 clean:
-	rm -f $(TARGET)
+	rm -rf $(DYNOBJ) $(DYNLIB) $(DYNDBG) $(EXOBJ) $(EXEXE) $(EXDBG) $(STATOBJ) $(STATLIB) $(DATAFILE)

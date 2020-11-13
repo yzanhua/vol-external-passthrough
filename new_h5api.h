@@ -14,25 +14,16 @@
  * Purpose:	The public header file for the pass-through VOL connector.
  */
 
-#ifndef _H5VLpassthru_ext_H
-#define _H5VLpassthru_ext_H
+#ifndef _new_h5api_H
+#define _new_h5api_H
 
-/* Public headers needed by this file */
-#include "H5VLpublic.h"        /* Virtual Object Layer                 */
+/* Include HDF5 header file */
+#include "hdf5.h"
 
-/* Identifier for the pass-through VOL connector */
-#define H5VL_PASSTHRU_EXT	(H5VL_pass_through_ext_register())
-
-/* Characteristics of the pass-through VOL connector */
-#define H5VL_PASSTHRU_EXT_NAME        "pass_through_ext"
-#define H5VL_PASSTHRU_EXT_VALUE       517           /* VOL connector ID */
-#define H5VL_PASSTHRU_EXT_VERSION     0
-/* Pass-through VOL connector info */
-typedef struct H5VL_pass_through_ext_info_t {
-    hid_t under_vol_id;         /* VOL ID for under VOL */
-    void *under_vol_info;       /* VOL info for under VOL */
-} H5VL_pass_through_ext_info_t;
-
+/* Names for dynamically registered operations */
+#define H5VL_PASSTHRU_EXT_DYN_FOO        "org.example.ext_passthru.foo"
+#define H5VL_PASSTHRU_EXT_DYN_BAR        "org.example.ext_passthru.bar"
+#define H5VL_PASSTHRU_EXT_DYN_FIDDLE     "org.example.ext_passthru.fiddle"
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,11 +34,9 @@ herr_t H5Dfoo(hid_t dset_id, hid_t dxpl_id, void **req, int i, double d);
 herr_t H5Dbar(hid_t dset_id, hid_t dxpl_id, void **req, double *dp, unsigned *up);
 herr_t H5Gfiddle(hid_t group_id, hid_t dxpl_id, void **req);
 
-H5_DLL hid_t H5VL_pass_through_ext_register(void);
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _H5VLpassthru_H */
+#endif /* _new_h5api_H */
 
