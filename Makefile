@@ -1,6 +1,6 @@
 #Your HDF5 install path
 #HDF5_DIR=../build_hdf5/hdf5
-HDF5_DIR=../../build_parallel_debug/hdf5
+HDF5_DIR=/Users/koziol/HDF5/github/hpc-io/async_vol_register_optional/build_parallel_debug/hdf5
 #MPI_DIR=/usr/local
 
 CC=mpicc
