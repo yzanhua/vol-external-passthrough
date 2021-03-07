@@ -432,7 +432,7 @@ H5VL_pass_through_ext_init(hid_t vipl_id)
 #endif
 
     /* Shut compiler up about unused parameter */
-    vipl_id = vipl_id;
+    (void)vipl_id;
 
     /* Acquire operation values for new "API" routines to use */
     assert(-1 == H5VL_passthru_dataset_foo_op_g);
