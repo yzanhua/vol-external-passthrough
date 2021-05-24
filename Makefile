@@ -13,12 +13,18 @@ INCLUDES=-I$(HDF5_DIR)/include
 CFLAGS = $(DEBUG) -fPIC $(INCLUDES) -Wall
 #LIBS=-L$(HDF5_DIR)/lib -L$(MPI_DIR)/lib -lhdf5 -lz
 LIBS=-L$(HDF5_DIR)/lib -lhdf5 -lz
+# Uncomment this line Linux builds:
+# DYNLDFLAGS = $(DEBUG) -shared -fPIC $(LIBS)
+# Uncomment this line MacOS builds:
 DYNLDFLAGS = $(DEBUG) -dynamiclib -current_version 1.0 -fPIC $(LIBS)
 LDFLAGS = $(DEBUG) $(LIBS)
 ARFLAGS = rs
 
 DYNSRC = H5VLpassthru_ext.c
 DYNOBJ = $(DYNSRC:.c=.o)
+# Uncomment this line Linux builds:
+# DYNLIB = libh5passthrough_vol.so
+# Uncomment this line MacOS builds:
 DYNLIB = libh5passthrough_vol.dylib
 DYNDBG = libh5passthrough_vol.dylib.dSYM
 
