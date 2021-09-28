@@ -26,7 +26,7 @@ jobs:
     - name: Run a multi-line script
       run: |
         . ./spack/share/spack/setup-env.sh
-        spack repo add .
+        spack repo add ./hdf-spack
         spack repo list
         spack install --test root hdf5-vol-tests+vol-external-passthrough
         
