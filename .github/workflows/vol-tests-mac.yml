@@ -1,4 +1,4 @@
-name: spack mac
+name: Test vol-tests on Mac
 
 on:
   push:
@@ -11,7 +11,11 @@ jobs:
 
     steps:
     - name: Checkout hdf-spack
-      uses: actions/checkout@v2    
+      uses: actions/checkout@v2
+      with:
+        repository: hdf-spack/hdf-spack
+        path: ./hdf-spack
+      
     - name: Checkout spack
       uses: actions/checkout@v2
       with:
@@ -21,6 +25,6 @@ jobs:
     - name: Run a multi-line script
       run: |
         . ./spack/share/spack/setup-env.sh      
-        spack repo add .
+        spack repo add ./hdf-spack
         spack repo list
         spack install --test root hdf5-vol-tests+vol-external-passthrough

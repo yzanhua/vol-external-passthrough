@@ -1,4 +1,4 @@
-name: spack ubuntu
+name: Test vol-tests on Ubuntu
 
 on:
   push:
@@ -13,6 +13,10 @@ jobs:
     steps:
     - name: Checkout hdf-spack
       uses: actions/checkout@v2
+      with:
+        repository: hdf-spack/hdf-spack
+        path: ./hdf-spack
+      
     - name: Checkout spack
       uses: actions/checkout@v2
       with:
