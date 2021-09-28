@@ -14,7 +14,7 @@ jobs:
     - name: Checkout hdf-spack
       uses: actions/checkout@v2
       with:
-        repository: hdf-spack/hdf-spack
+        repository: HDFGroup/hdf-spack
         path: ./hdf-spack
       
     - name: Checkout spack
