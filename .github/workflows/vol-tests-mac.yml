@@ -2,7 +2,7 @@ name: spack mac
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
   workflow_dispatch:
 
 jobs:
