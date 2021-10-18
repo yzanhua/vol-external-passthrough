@@ -38,10 +38,9 @@
 
 /* Public HDF5 headers */
 #include "hdf5.h"
-#include "hdf5dev.h"
 
 /* This connector's private header */
-#include "H5VLpassthru_ext_private.h"
+#include "H5VLpassthru_ext.h"
 
 /**********/
 /* Macros */
