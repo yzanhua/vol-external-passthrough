@@ -74,7 +74,6 @@ typedef struct H5VL_pass_through_ext_wrap_ctx_t {
     void *under_wrap_ctx;       /* Object wrapping context for under VOL */
 } H5VL_pass_through_ext_wrap_ctx_t;
 
-
 /********************* */
 /* Function prototypes */
 /********************* */
@@ -1967,6 +1966,63 @@ H5VL_pass_through_ext_file_close(void *file, hid_t dxpl_id, void **req)
 #ifdef ENABLE_EXT_PASSTHRU_LOGGING
     printf("------- EXT PASS THROUGH VOL FILE Close\n");
 #endif
+
+    // get mpi related info
+    int rank = 0, num_processes = 0;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &num_processes);
+
+    // the following codes create a new dataset called "TEST_DSET" under root.
+    // then write some data to it.
+    {
+        // set up H5VL_loc_params_t
+        H5VL_loc_params_t loc;
+        loc.type     = H5VL_OBJECT_BY_SELF;
+        loc.obj_type = H5I_FILE;
+
+        // create dataset create property list
+        hid_t dcplid = H5Pcreate (H5P_DATASET_CREATE);
+
+        // create a new dataset transfer property list
+        // we do not use the "dxpl_id" (the argument passed to this function H5VL_pass_through_ext_file_close)
+        hid_t new_dxplid = H5Pcreate(H5P_DATASET_XFER);
+        H5Pset_dxpl_mpio(dxpl_id, H5FD_MPIO_COLLECTIVE);
+
+        // prepare memory space and file space
+        // each process write 10 integers, so there will be 10 * num_processes integers in file.
+        hsize_t msize = 10;  // size in memory is 10
+        hid_t mspace_id = H5Screate_simple (1, &msize, &msize);  // memory space
+        hsize_t fsize = msize * num_processes; // size of file is 10 * num_processes
+        hid_t fspace_id = H5Screate_simple (1, &fsize, &fsize);  // file space
+
+        // create dataset "/TEST_DSET"
+        void* dset_obj = H5VLdataset_create (o->under_object, &loc, o->under_vol_id, "TEST_DSET",
+                            H5P_LINK_CREATE_DEFAULT, H5T_STD_B8LE, fspace_id, dcplid, H5P_DATASET_ACCESS_DEFAULT,
+                                        new_dxplid, NULL);
+
+        // select hyperslab for file space
+        hsize_t mstart = rank * msize;  // the starting point of this process
+        hsize_t mone = 1;
+        H5Sselect_hyperslab(fspace_id, H5S_SELECT_SET, &mstart, NULL, &mone, &msize);
+
+        // prepare data buffer
+        char *mbuff = (char *)malloc (msize);
+        for (int i = 0; i < (int)msize; i++) {
+            mbuff[i] = (char) (65 + i);  // set data buffer
+        }
+
+        // use new_dxplid to write dataset
+        H5VLdataset_write (dset_obj, o->under_vol_id, H5T_STD_B8LE, mspace_id, fspace_id,
+                                        new_dxplid, (void *)mbuff, NULL);
+        H5VLdataset_close (dset_obj, o->under_vol_id, new_dxplid, NULL);
+
+        // close and free resources
+        if (new_dxplid >= 0) H5Pclose(new_dxplid);
+        if (dcplid >= 0) H5Pclose(dcplid);
+        if (fspace_id >= 0) H5Sclose(fspace_id);
+        if (mspace_id >= 0) H5Sclose(mspace_id);
+        free(mbuff);
+    }
 
     ret_value = H5VLfile_close(o->under_object, o->under_vol_id, dxpl_id, req);
 
